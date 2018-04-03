@@ -13,5 +13,5 @@ public interface BookDao extends CrudRepository<Book, Long> {
     @Override
     List<Book> findAll();
 
-    Book findByTitle(String title);
+    List<Book> findByTitle(String title);
 }

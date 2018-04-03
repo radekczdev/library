@@ -9,7 +9,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "BOOKS")
+@Table(
+        name = "BOOKS",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "author", "year"})}
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter(AccessLevel.PRIVATE)

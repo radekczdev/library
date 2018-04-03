@@ -1,6 +1,7 @@
 package com.czajor.library.model;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -11,15 +12,16 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "BORROWED")
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter(AccessLevel.PRIVATE)
 public class Borrow {
-    private int id;
+    private long id;
     private BookCopy bookCopy;
     private Reader reader;
     private LocalDateTime borrowed;
     private LocalDateTime returned;
 
-    public Borrow(BookCopy bookCopy, Reader reader, LocalDateTime borrowed) {
+    public Borrow(BookCopy bookCopy, Reader reader) {
         this.bookCopy = bookCopy;
         this.reader = reader;
         this.borrowed = LocalDateTime.now();
@@ -33,19 +35,20 @@ public class Borrow {
     @NotNull
     @GeneratedValue
     @Column(name = "ID", unique = true)
-    public int getId() {
+    public long getId() {
         return id;
     }
 
+
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "BOOK_COPY_ID")
     public BookCopy getBookCopy() {
         return bookCopy;
     }
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "READER_ID")
     public Reader getReader() {
         return reader;
@@ -57,7 +60,6 @@ public class Borrow {
         return borrowed;
     }
 
-    @NotNull
     @Column(name = "RETURNED_DATE")
     public LocalDateTime getReturned() {
         return returned;

@@ -1,18 +1,19 @@
 package com.czajor.library.model;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @Entity
 @Table(name = "READERS")
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter(AccessLevel.PRIVATE)
 public class Reader {
     private long id;
@@ -20,7 +21,7 @@ public class Reader {
     private String surname;
     private LocalDateTime estDate;
 
-    public Reader(String name, String surname, Date estDate) {
+    public Reader(String name, String surname) {
         this.name = name;
         this.surname = surname;
         this.estDate = LocalDateTime.now();
