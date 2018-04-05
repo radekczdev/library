@@ -1,0 +1,212 @@
+{
+	"id": "f5ebdeee-4071-4239-95e5-cf2b122e2c2c",
+	"name": "libraryPortal",
+	"description": null,
+	"auth": null,
+	"events": null,
+	"variables": null,
+	"order": [
+		"5a0c4969-2c9a-4ecb-a78a-4ec3a724de43",
+		"ec8ad7d7-6efc-4dcb-a75f-05c35d712797",
+		"94d676a7-616d-49f8-b189-a0bdfcacfd3e",
+		"aadbaca4-d4b4-40a8-980e-78f77f066f52",
+		"481bac5c-7e85-4085-aacc-9d02f2fc81da",
+		"021a24d3-8866-48c9-a838-54c6937af358",
+		"20baf601-8642-469b-9aae-a8c813cc7083"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "021a24d3-8866-48c9-a838-54c6937af358",
+			"name": "borrowBook",
+			"url": "http://localhost:8080/borrow?readerId=16&bookId=1",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "readerId",
+					"value": "16",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "bookId",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "20baf601-8642-469b-9aae-a8c813cc7083",
+			"name": "returnBook",
+			"url": "http://localhost:8080/borrow?borrowId=15",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "borrowId",
+					"value": "15",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "481bac5c-7e85-4085-aacc-9d02f2fc81da",
+			"name": "checkAvailableBookCopiesAmount",
+			"url": "http://localhost:8080/bookCopy?bookId=2",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "bookId",
+					"value": "2",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "5a0c4969-2c9a-4ecb-a78a-4ec3a724de43",
+			"name": "addReader",
+			"url": "http://localhost:8080/reader",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"name\" : \"Andrew\",\n\t\"surname\" : \"Nowak\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "94d676a7-616d-49f8-b189-a0bdfcacfd3e",
+			"name": "addBookCopy",
+			"url": "http://localhost:8080/bookCopy?bookId=2",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "bookId",
+					"value": "2",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "aadbaca4-d4b4-40a8-980e-78f77f066f52",
+			"name": "changeBookCopyStatus",
+			"url": "http://localhost:8080/bookCopy?bookCopyId=9&status=ACTIVE",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "bookCopyId",
+					"value": "9",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "status",
+					"value": "ACTIVE",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "ec8ad7d7-6efc-4dcb-a75f-05c35d712797",
+			"name": "addBook",
+			"url": "http://localhost:8080/book",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"title\" : \"LOTR\",\n\t\"author\" : \"J.R.R Tolkien\",\n\t\"year\" : \"1945\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}

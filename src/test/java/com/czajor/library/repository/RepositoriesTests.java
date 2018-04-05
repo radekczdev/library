@@ -1,9 +1,6 @@
 package com.czajor.library.repository;
 
-import com.czajor.library.model.Book;
-import com.czajor.library.model.BookCopy;
-import com.czajor.library.model.Borrow;
-import com.czajor.library.model.Reader;
+import com.czajor.library.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,9 +85,9 @@ public class RepositoriesTests {
             Book book2 = new Book("Title 2", "Author 2", 1995);
             bookDao.save(book1);
             bookDao.save(book2);
-            BookCopy book1Copy = new BookCopy(bookDao.findByTitle("Title 1").get(0), BookCopy.ACTIVE);
-            BookCopy book1Copy2 = new BookCopy(bookDao.findByTitle("Title 1").get(0), BookCopy.ACTIVE);
-            BookCopy book2Copy = new BookCopy(bookDao.findByTitle("Title 2").get(0), BookCopy.LOST);
+            BookCopy book1Copy = new BookCopy(bookDao.findByTitle("Title 1").get(0), Statuses.ACTIVE);
+            BookCopy book1Copy2 = new BookCopy(bookDao.findByTitle("Title 1").get(0), Statuses.ACTIVE);
+            BookCopy book2Copy = new BookCopy(bookDao.findByTitle("Title 2").get(0), Statuses.LOST);
             bookCopyDao.save(book1Copy);
             bookCopyDao.save(book1Copy2);
             bookCopyDao.save(book2Copy);
@@ -138,7 +135,7 @@ public class RepositoriesTests {
             // Given
             Book book = new Book("Title 1", "Author 1", 2013);
             bookDao.save(book);
-            BookCopy bookCopy = new BookCopy(bookDao.findByTitle("Title 1").get(0), BookCopy.ACTIVE);
+            BookCopy bookCopy = new BookCopy(bookDao.findByTitle("Title 1").get(0), Statuses.ACTIVE);
             bookCopyDao.save(bookCopy);
             Reader reader = new Reader("John", "Kowalsky");
             readerDao.save(reader);

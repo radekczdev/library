@@ -41,14 +41,20 @@ public class Borrow {
 
 
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE
+    )
     @JoinColumn(name = "BOOK_COPY_ID")
     public BookCopy getBookCopy() {
         return bookCopy;
     }
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(
+            cascade = CascadeType.MERGE,
+            fetch = FetchType.EAGER
+    )
     @JoinColumn(name = "READER_ID")
     public Reader getReader() {
         return reader;

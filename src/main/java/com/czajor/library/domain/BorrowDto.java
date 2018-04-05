@@ -10,11 +10,30 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class BorrowDto {
     private long id;
     private BookCopy bookCopy;
     private Reader reader;
     private LocalDateTime borrowed;
     private LocalDateTime returned;
+
+    public long getId() {
+        return id;
+    }
+
+    public BookCopy getBookCopy() {
+        return bookCopy;
+    }
+
+    public Reader getReader() {
+        return reader;
+    }
+
+    public LocalDateTime getBorrowed() {
+        return borrowed;
+    }
+
+    public LocalDateTime getReturned() {
+        return returned;
+    }
 }

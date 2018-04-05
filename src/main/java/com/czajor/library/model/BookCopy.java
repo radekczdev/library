@@ -1,5 +1,6 @@
 package com.czajor.library.model;
 
+import com.czajor.library.exceptions.WrongStatusException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "BOOKCOPIES")
@@ -14,17 +16,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Setter(AccessLevel.PRIVATE)
 public class BookCopy {
-    public static String ACTIVE = "book ready to borrow";
-    public static String BORROWED = "book is currently borrowed";
-    public static String WORN_OUT = "book is worn out";
-    public static String LOST = "book has been lost";
 
     private long id;
     private Book book;
-    private String status;
-    private Borrow borrow;
+    private Statuses status;
 
-    public BookCopy(Book book, String status) {
+    public BookCopy(Book book, Statuses status) {
         this.book = book;
         this.status = status;
     }
@@ -45,21 +42,18 @@ public class BookCopy {
         return book;
     }
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
-    public String getStatus() {
+    public Statuses getStatus() {
         return status;
     }
 
-    @OneToOne(
-            mappedBy = "bookCopy",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
-    public Borrow getBorrow() {
-        return borrow;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(Statuses status) throws WrongStatusException {
+        if(Arrays.stream(Statuses.values()).anyMatch(a -> a.equals(status))) {
+            this.status = status;
+        } else {
+            throw new WrongStatusException();
+        }
     }
 }

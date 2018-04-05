@@ -2,11 +2,10 @@ package com.czajor.library.service;
 
 import com.czajor.library.exceptions.BorrowNotFound;
 import com.czajor.library.exceptions.ReaderNotFound;
-import com.czajor.library.model.Book;
 import com.czajor.library.model.BookCopy;
 import com.czajor.library.model.Borrow;
 import com.czajor.library.model.Reader;
-import com.czajor.library.repository.BookCopyDao;
+import com.czajor.library.model.Statuses;
 import com.czajor.library.repository.BorrowDao;
 import com.czajor.library.repository.ReaderDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,25 +20,20 @@ public class BorrowService {
     private ReaderDao readerDao;
 
     @Autowired
-    private BookCopyDao bookCopyDao;
-
-    @Autowired
     private BookCopyService bookCopyService;
 
-    public void borrowBook(Book book, long readerId) throws ReaderNotFound {
-        BookCopy bookCopy = bookCopyService.checkAvailableBookCopies(book).get(0);
-        bookCopy.setStatus(BookCopy.BORROWED);
-        bookCopyDao.save(bookCopy);
+    public void borrowBook(long bookId, long readerId) throws Exception {
+        BookCopy bookCopy = bookCopyService.checkAvailableBookCopies(bookId).iterator().next();
+        bookCopyService.changeBookCopyStatus(bookCopy.getId(), Statuses.BORROWED.toString());
         Reader reader = readerDao.findById(readerId).orElseThrow(ReaderNotFound::new);
         borrowDao.save(new Borrow(bookCopy, reader));
     }
 
-    public void returnBook(Borrow borrow) throws BorrowNotFound {
+    public void returnBook(long borrowId) throws Exception {
+        Borrow borrow = borrowDao.findById(borrowId).orElseThrow(BorrowNotFound::new);
         BookCopy bookCopy = borrow.getBookCopy();
-        bookCopy.setStatus(BookCopy.ACTIVE);
-        bookCopyDao.save(bookCopy);
-        Borrow borrowDb = borrowDao.findById(borrow.getId()).orElseThrow(BorrowNotFound::new);
-        borrowDb.returnBook();
-        borrowDao.save(borrowDb);
+        bookCopyService.changeBookCopyStatus(bookCopy.getId(), Statuses.ACTIVE.toString());
+        borrow.returnBook();
+        borrowDao.save(borrow);
     }
 }
